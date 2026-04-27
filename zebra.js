@@ -72,12 +72,15 @@ function smallLabel({ lotId, customerName, destructionType }) {
   `.trim();
 }
 function narrowLabel({ lotId }) {
+  // note: this is printing two per label, since these stickers are so long
   return `
 ^XA
 ^PW203
 ^LL1319
-^FO600,20^A0R,40,40^FD${lotId}^FS
-^FO480,20^BCR,60,N,N,N^FD${lotId}^FS
+^FO60,40^A0R,90,90^FD${lotId}^FS
+^FO160,40^BCR,60,N,N,N^FD${lotId}^FS
+^FO60,730^A0R,90,90^FD${lotId}^FS
+^FO160,730^BCR,60,N,N,N^FD${lotId}^FS
 ^XZ
   `.trim();
 }
