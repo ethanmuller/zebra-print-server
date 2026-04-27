@@ -52,7 +52,7 @@ function largeLabel({ lotId, customerName, destructionType }) {
 ^FO420,50^A0R,35,35^FDCustomer^FS
 ^FO350,50^A0R,60,60^FD${customerName}^FS
 ^FO250,50^A0R,35,35^FDDestruction Method^FS
-^FO280,50^A0R,60,60^FD${destructionType}^FS
+^FO180,50^A0R,60,60^FD${destructionType}^FS
 ^XZ
   `.trim();
 }
