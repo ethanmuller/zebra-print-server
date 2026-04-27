@@ -45,8 +45,8 @@ async function printZPL(printerName, zpl) {
 function largeLabel({ lotId, customerName, destructionType }) {
   return `
 ^XA
-^PW1218
-^LL812
+^PW812
+^LL1218
 ^FO50,50^A0N,90,90^FD${lotId}^FS
 ^FO50,160^BCN,80,N,N,N^FD${lotId}^FS
 ^FO50,310^A0N,35,35^FDCustomer^FS
