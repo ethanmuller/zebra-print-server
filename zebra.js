@@ -38,22 +38,21 @@ async function printZPL(printerName, zpl) {
 
 // -- ZPL templates --
 // All dimensions @ 203dpi
-// large:  4x6"  = 812w x 1218h dots
+// large:  4x6"  = 1218h x 812w dots
 // small:  3x4"  = 609w x 812h dots
 // narrow: 1x6.5"= 203w x 1319h dots
 
 function largeLabel({ lotId, customerName, destructionType }) {
   return `
 ^XA
-^FWB
 ^PW1218
 ^LL812
-^FO50,700^A0N,90,90^FD${lotId}^FS
-^FO50,560^BCN,80,N,N,N^FD${lotId}^FS
-^FO50,410^A0N,35,35^FDCustomer^FS
-^FO50,365^A0N,60,60^FD${customerName}^FS
-^FO50,255^A0N,35,35^FDDestruction Method^FS
-^FO50,210^A0N,60,60^FD${destructionType}^FS
+^FO50,50^A0N,90,90^FD${lotId}^FS
+^FO50,160^BCN,80,N,N,N^FD${lotId}^FS
+^FO50,310^A0N,35,35^FDCustomer^FS
+^FO50,355^A0N,60,60^FD${customerName}^FS
+^FO50,465^A0N,35,35^FDDestruction Method^FS
+^FO50,510^A0N,60,60^FD${destructionType}^FS
 ^XZ
   `.trim();
 }
