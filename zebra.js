@@ -47,12 +47,12 @@ function largeLabel({ lotId, customerName, destructionType }) {
 ^XA
 ^PW812
 ^LL1218
-^FO700,50^A0R,90,90^FD${lotId}^FS
-^FO580,50^BCR,80,N,N,N^FD${lotId}^FS
+^FO600,50^A0R,150,150^FD${lotId}^FS
+^FO540,50^BCR,80,N,N,N^FD${lotId}^FS
 ^FO420,50^A0R,35,35^FDCustomer^FS
-^FO370,50^A0R,60,60^FD${customerName}^FS
+^FO350,50^A0R,60,60^FD${customerName}^FS
 ^FO250,50^A0R,35,35^FDDestruction Method^FS
-^FO200,50^A0R,60,60^FD${destructionType}^FS
+^FO280,50^A0R,60,60^FD${destructionType}^FS
 ^XZ
   `.trim();
 }
@@ -72,12 +72,12 @@ function smallLabel({ lotId, customerName, destructionType }) {
   `.trim();
 }
 function narrowLabel({ lotId }) {
-  // Narrow is portrait 1x6.5" — rotated text reads along the length
   return `
 ^XA
 ^PW203
 ^LL1319
-^FO20,100^A0N,40,40^FD${lotId}^FS
+^FO600,20^A0R,40,40^FD${lotId}^FS
+^FO480,20^BCR,60,N,N,N^FD${lotId}^FS
 ^XZ
   `.trim();
 }
