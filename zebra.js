@@ -33,7 +33,7 @@ async function printZPL(printerName, zpl) {
   });
 
   const result = await res.text();
-  if (result !== "") throw new Error(`Print failed: ${result}`);
+  if (!res.ok) throw new Error(`Print failed: ${result}`);
 }
 
 // -- ZPL templates --
