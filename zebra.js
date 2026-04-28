@@ -2,6 +2,11 @@ import https from 'https';
 import fs from 'fs';
 import express from "express";
 import cors from 'cors';
+import { fileURLToPath } from 'url';
+import path from 'path';
+
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
+
 
 const app = express();
 app.use(cors({
