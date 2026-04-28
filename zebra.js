@@ -1,6 +1,15 @@
+import https from 'https';
+import fs from 'fs';
 import express from "express";
+import cors from 'cors';
 
 const app = express();
+app.use(cors({
+  origin: [
+    'https://cmserp-sandbox.assetsbycms.com',
+    'https://cmserp-prod.assetsbycms.com',
+  ],
+}));
 app.use(express.json());
 
 const BASE = "http://localhost:9100";
@@ -60,8 +69,8 @@ function largeLabel({ lotId, customerName, destructionType }) {
 function smallLabel({ lotId, customerName, destructionType }) {
   return `
 ^XA
-^PW609
-^LL812
+^PW812
+^LL609
 ^FO40,40^A0N,90,90^FD${lotId}^FS
 ^FO40,120^BCN,60,N,N,N^FD${lotId}^FS
 ^FO40,240^A0N,28,28^FDCustomer^FS
@@ -125,4 +134,12 @@ app.post("/print/narrow", async (req, res) => {
   }
 });
 
-app.listen(3000, () => console.log("Print server running on http://localhost:3000"));
+
+const options = {
+  key: fs.readFileSync('localhost-key.pem'),
+  cert: fs.readFileSync('localhost.pem'),
+};
+
+https.createServer(options, app).listen(3000, () => {
+  console.log('Listening on https://localhost:3000');
+});
