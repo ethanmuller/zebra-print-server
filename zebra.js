@@ -136,8 +136,8 @@ app.post("/print/narrow", async (req, res) => {
 
 
 const options = {
-  key: fs.readFileSync('localhost-key.pem'),
-  cert: fs.readFileSync('localhost.pem'),
+  key: fs.readFileSync(`${__dirname}/localhost-key.pem`),
+  cert: fs.readFileSync(`${__dirname}/localhost.pem`),
 };
 
 https.createServer(options, app).listen(3000, () => {
