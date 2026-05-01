@@ -30,7 +30,15 @@ const PRINTERS = {
 // -- Zebra helpers --
 
 async function getPrinters() {
-  const res = await fetch(`${BASE}/available`);
+  let res;
+  try {
+    res = await fetch(`${BASE}/available`);
+  } catch (err) {
+    throw new Error(
+      `Could not reach Zebra Browser Print at ${BASE}. ` +
+      `Make sure the Zebra Browser Print app is running on this machine. (${err.message})`
+    );
+  }
   const data = await res.json();
   return data.printer ?? [];
 }
