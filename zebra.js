@@ -69,10 +69,10 @@ function largeLabel({ lotId, destructionType }) {
 ^XA
 ^PW812
 ^LL1218
-^FO600,50^A0R,240,240^FD${lotId}^FS
-^FO540,50^BCR,80,N,N,N^FD${lotId}^FS
-^FO420,50^A0R,35,35^FDDestruction Method^FS
-^FO350,50^A0R,60,60^FD${destructionType}^FS
+^FO500,50^A0R,220,220^FD${lotId}^FS
+^FO440,50^BCR,80,N,N,N^FD${lotId}^FS
+^FO320,50^A0R,35,35^FDDestruction Method^FS
+^FO250,50^A0R,60,60^FD${destructionType}^FS
 ^XZ
   `.trim();
 }
