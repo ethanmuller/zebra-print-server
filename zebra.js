@@ -56,32 +56,28 @@ async function printZPL(printerName, zpl) {
 // small:  3x4"  = 609w x 812h dots
 // narrow: 1x6.5"= 203w x 1319h dots
 
-function largeLabel({ lotId, customerName, destructionType }) {
+function largeLabel({ lotId, destructionType }) {
   return `
 ^XA
 ^PW812
 ^LL1218
 ^FO600,50^A0R,150,150^FD${lotId}^FS
 ^FO540,50^BCR,80,N,N,N^FD${lotId}^FS
-^FO420,50^A0R,35,35^FDCustomer^FS
-^FO350,50^A0R,60,60^FD${customerName}^FS
-^FO250,50^A0R,35,35^FDDestruction Method^FS
-^FO180,50^A0R,60,60^FD${destructionType}^FS
+^FO420,50^A0R,35,35^FDDestruction Method^FS
+^FO350,50^A0R,60,60^FD${destructionType}^FS
 ^XZ
   `.trim();
 }
 
-function smallLabel({ lotId, customerName, destructionType }) {
+function smallLabel({ lotId, destructionType }) {
   return `
 ^XA
 ^PW812
 ^LL609
 ^FO40,40^A0N,90,90^FD${lotId}^FS
 ^FO40,120^BCN,60,N,N,N^FD${lotId}^FS
-^FO40,240^A0N,28,28^FDCustomer^FS
-^FO40,275^A0N,45,45^FD${customerName}^FS
-^FO40,365^A0N,28,28^FDDestruction Method^FS
-^FO40,400^A0N,45,45^FD${destructionType}^FS
+^FO40,240^A0N,28,28^FDDestruction Method^FS
+^FO40,275^A0N,45,45^FD${destructionType}^FS
 ^XZ
   `.trim();
 }
@@ -102,12 +98,12 @@ function narrowLabel({ lotId }) {
 // -- Routes --
 
 app.post("/print/large", async (req, res) => {
-  const { lotId, customerName, destructionType } = req.body;
-  if (!lotId || !customerName || !destructionType)
-    return res.status(400).json({ error: "lotId, customerName, and destructionType are required" });
+  const { lotId, destructionType } = req.body;
+  if (!lotId || !destructionType)
+    return res.status(400).json({ error: "lotId and destructionType are required" });
 
   try {
-    await printZPL(PRINTERS['large'], largeLabel({ lotId, customerName, destructionType }));
+    await printZPL(PRINTERS['large'], largeLabel({ lotId, destructionType }));
     res.json({ ok: true });
   } catch (err) {
     res.status(500).json({ error: err.message });
@@ -115,12 +111,12 @@ app.post("/print/large", async (req, res) => {
 });
 
 app.post("/print/small", async (req, res) => {
-  const { lotId, customerName, destructionType } = req.body;
-  if (!lotId || !customerName || !destructionType)
-    return res.status(400).json({ error: "lotId, customerName, and destructionType are required" });
+  const { lotId, destructionType } = req.body;
+  if (!lotId || !destructionType)
+    return res.status(400).json({ error: "lotId and destructionType are required" });
 
   try {
-    await printZPL(PRINTERS['small'], smallLabel({ lotId, customerName, destructionType }));
+    await printZPL(PRINTERS['small'], smallLabel({ lotId, destructionType }));
     res.json({ ok: true });
   } catch (err) {
     res.status(500).json({ error: err.message });
