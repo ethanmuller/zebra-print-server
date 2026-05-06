@@ -77,6 +77,16 @@ function largeLabel({ lotId, destructionType }) {
   `.trim();
 }
 
+function largeLabelCustom({ text }) {
+  return `
+^XA
+^PW812
+^LL1218
+^FO50,50^A0R,80,80^TB R,1100,730^FD${text}^FS
+^XZ
+  `.trim();
+}
+
 function smallLabel({ lotId, destructionType }) {
   return `
 ^XA
@@ -86,6 +96,16 @@ function smallLabel({ lotId, destructionType }) {
 ^FO40,120^BCN,60,N,N,N^FD${lotId}^FS
 ^FO40,240^A0N,28,28^FDDestruction Method^FS
 ^FO40,275^A0N,45,45^FD${destructionType}^FS
+^XZ
+  `.trim();
+}
+
+function smallLabelCustom({ text }) {
+  return `
+^XA
+^PW812
+^LL609
+^FO40,40^A0N,80,80^TB N,730,560^FD${text}^FS
 ^XZ
   `.trim();
 }
@@ -103,15 +123,29 @@ function narrowLabel({ lotId }) {
   `.trim();
 }
 
+function narrowLabelCustom({ text }) {
+  // single block, no duplication unlike the lotId version
+  return `
+^XA
+^PW203
+^LL1319
+^FO40,40^A0N,40,40^TB N,120,1240^FD${text}^FS
+^XZ
+  `.trim();
+}
+
 // -- Routes --
 
 app.post("/print/large", async (req, res) => {
-  const { lotId, destructionType } = req.body;
-  if (!lotId || !destructionType)
-    return res.status(400).json({ error: "lotId and destructionType are required" });
+  const { lotId, destructionType, text } = req.body;
+  if (!text && (!lotId || !destructionType))
+    return res.status(400).json({ error: "lotId and destructionType are required, or provide text" });
 
   try {
-    await printZPL(PRINTERS['large'], largeLabel({ lotId, destructionType }));
+    const zpl = text
+      ? largeLabelCustom({ text })
+      : largeLabel({ lotId, destructionType });
+    await printZPL(PRINTERS['large'], zpl);
     res.json({ ok: true });
   } catch (err) {
     res.status(500).json({ error: err.message });
@@ -119,12 +153,15 @@ app.post("/print/large", async (req, res) => {
 });
 
 app.post("/print/small", async (req, res) => {
-  const { lotId, destructionType } = req.body;
-  if (!lotId || !destructionType)
-    return res.status(400).json({ error: "lotId and destructionType are required" });
+  const { lotId, destructionType, text } = req.body;
+  if (!text && (!lotId || !destructionType))
+    return res.status(400).json({ error: "lotId and destructionType are required, or provide text" });
 
   try {
-    await printZPL(PRINTERS['small'], smallLabel({ lotId, destructionType }));
+    const zpl = text
+      ? smallLabelCustom({ text })
+      : smallLabel({ lotId, destructionType });
+    await printZPL(PRINTERS['small'], zpl);
     res.json({ ok: true });
   } catch (err) {
     res.status(500).json({ error: err.message });
@@ -132,11 +169,15 @@ app.post("/print/small", async (req, res) => {
 });
 
 app.post("/print/narrow", async (req, res) => {
-  const { lotId } = req.body;
-  if (!lotId) return res.status(400).json({ error: "lotId is required" });
+  const { lotId, text } = req.body;
+  if (!text && !lotId)
+    return res.status(400).json({ error: "lotId is required, or provide text" });
 
   try {
-    await printZPL(PRINTERS['narrow'], narrowLabel({ lotId }));
+    const zpl = text
+      ? narrowLabelCustom({ text })
+      : narrowLabel({ lotId });
+    await printZPL(PRINTERS['narrow'], zpl);
     res.json({ ok: true });
   } catch (err) {
     res.status(500).json({ error: err.message });
