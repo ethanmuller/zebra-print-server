@@ -129,7 +129,7 @@ function narrowLabelCustom({ text }) {
 ^XA
 ^PW203
 ^LL1319
-^FO40,40^A0N,40,40^TB R,1240,120^FD${text}^FS
+^FO40,40^A0N,90,90^TB R,1240,120^FD${text}^FS
 ^XZ
   `.trim();
 }
