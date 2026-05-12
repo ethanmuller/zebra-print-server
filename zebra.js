@@ -82,7 +82,8 @@ function largeLabelCustom({ text }) {
 ^XA
 ^PW812
 ^LL1218
-^FO50,50^A0R,220,220^TB R,1100,730^FD${text}^FS
+^FO50,50^A0R,80,80^FD${new Date().toLocaleDateString()}^FS
+^FO50,50^A0R,160,160^TB R,1168,730^FD${text}^FS
 ^XZ
   `.trim();
 }
