@@ -115,10 +115,8 @@ function narrowLabel({ lotId }) {
 ^XA
 ^PW203
 ^LL1319
-^FO60,40^A0R,90,90^FD${lotId}^FS
-^FO160,40^BCR,60,N,N,N^FD${lotId}^FS
-^FO60,730^A0R,90,90^FD${lotId}^FS
-^FO160,730^BCR,60,N,N,N^FD${lotId}^FS
+^FO0,40^A0R,90,90^FD${lotId}^FS
+^FO120,40^BCR,60,N,N,N^FD${lotId}^FS
 ^XZ
   `.trim();
 }
@@ -129,7 +127,7 @@ function narrowLabelCustom({ text }) {
 ^XA
 ^PW203
 ^LL1319
-^FO40,40^A0N,90,90^TB R,1240,120^FD${text}^FS
+^FO0,40^A0N,80,80^TB R,569,170^FD${text}^FS
 ^XZ
   `.trim();
 }
